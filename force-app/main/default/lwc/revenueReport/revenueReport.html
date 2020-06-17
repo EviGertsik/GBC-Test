@@ -1,0 +1,36 @@
+<template>
+    <div class="slds-var-m-around_medium">
+        <lightning-card variant="Narrow">
+            <template if:true={theList}>
+                <div class="slds-var-m-around_medium">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"> Account Name </th>
+                                <th scope="col"> Weeks </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={theList} for:item='account'>
+                                <tr key={account} class="slds-hint-parent">
+                                    <th scope="row"> {account.account} </th>
+                                    <th scope="row">
+                                        <template for:each={account.orders} for:item='order'>
+                                            <div class='slds-border_bottom' key={order.week}>
+                                                <p>Revenue: {order.revenue}</p>
+                                                <p>Margin: {order.margin}</p>
+                                                <p>{order.week}</p>
+                                            </div>
+                                        </template>
+                                    </th>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+        </lightning-card>
+
+    </div>
+
+</template>

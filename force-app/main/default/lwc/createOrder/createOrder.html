@@ -1,0 +1,62 @@
+<template>
+    <div class="slds-grid slds-gutters slds-var-m-around_medium slds-wrap">
+        <div class='slds-size_1-of-2 slds-col'>
+            <lightning-card variant="Narrow" title="Create Order" icon-name="standard:account">
+                <div class="slds-var-m-around_large">
+                    <lightning-record-edit-form onsuccess={handleOrderCreate} object-api-name="Order__c">
+                        <lightning-messages></lightning-messages>
+                        <lightning-input-field field-name="Account__c">
+                        </lightning-input-field>
+                        <lightning-button type="submit" name="submit" label="Create Order">
+                        </lightning-button>
+                    </lightning-record-edit-form>
+                </div>
+            </lightning-card>
+        </div>
+    </div>
+    <div class="slds-grid slds-gutters slds-var-m-around_medium slds-wrap">
+        <div class='slds-size_1-of-2 slds-col'>
+            <template if:true={orderId}>
+                <lightning-card variant="Narrow" title="Create Sales Rate" icon-name="standard:account">
+                    <div class="slds-var-m-around_large">
+                        <lightning-record-edit-form onsuccess={handleRateCreate} object-api-name="Sales_Rate__c">
+                            <lightning-messages></lightning-messages>
+                            <lightning-input-field value={orderId} disabled field-name="Order__c">
+                            </lightning-input-field>
+                            <lightning-input-field field-name="Sales_Price__c">
+                            </lightning-input-field>
+                            <lightning-input-field field-name="Cost_Price__c">
+                            </lightning-input-field>
+                            <lightning-input-field field-name="Name">
+                            </lightning-input-field>
+                            <lightning-button type="submit" name="submit" label="Create Sales Rate">
+                            </lightning-button>
+                        </lightning-record-edit-form>
+                    </div>
+                </lightning-card>
+            </template>
+        </div>
+        <div class="slds-size_1-of-2 slds-col">
+            <template if:true={isPeriodFormRendered}>
+                <lightning-card variant="Narrow" title="Create Work Period" icon-name="standard:account">
+                    <div class="slds-var-m-around_large">
+                        <lightning-record-edit-form onsuccess={handlePeriodCreate} object-api-name="Work_Period__c">
+                            <lightning-messages></lightning-messages>
+                            <lightning-input-field value={orderId} disabled field-name="Order__c">
+                            </lightning-input-field>
+                            <lightning-input-field field-name="Sales_Rate__c">
+                            </lightning-input-field>
+                            <lightning-input-field field-name="Start_Date__c">
+                            </lightning-input-field>
+                            <lightning-input-field field-name="End_Date__c">
+                            </lightning-input-field>
+                            <lightning-button type="submit" name="submit" label="Create Work Period">
+                            </lightning-button>
+                        </lightning-record-edit-form>
+                    </div>
+                </lightning-card>
+            </template>
+        </div>
+    </div>
+
+</template>
