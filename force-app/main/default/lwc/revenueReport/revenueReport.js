@@ -1,21 +1,22 @@
 import { LightningElement } from 'lwc';
-import getOrders from '@salesforce/apex/RevenueReportController.getOrders';
+import getWeeklyRevenueReport from '@salesforce/apex/RevenueReportController.getWeeklyRevenueReport';
 
 export default class RevenueReport extends LightningElement {
     theList;
 
-    renderedCallback() {
-        getOrders()
+    connectedCallback() {
+        getWeeklyRevenueReport()
             .then((result) => {
                 let parsedResult = JSON.parse(result);
                 this.theList = Object.keys(parsedResult).map(i => ({
                     account: i,
                     orders: parsedResult[i]
                 }));
-                this.calculateTotals(this.theList);
+                console.log('theList : ',this.theList);
+
             }).catch((err) => {
-                this.error = err;
-            });
+                console.error(err);
+            })
     }
 
     calculateTotals(param) {
@@ -27,10 +28,12 @@ export default class RevenueReport extends LightningElement {
                 totalMargin += subElement.margin;
             })
         });
-        let obj = [{
-            revenue: totalRevenue, 
-            margin: totalMargin
-        }]
-        this.theList.push({account: 'TOTAL', orders: obj});
+        this.theList.push({account: 'TOTAL', orders: [{
+                                                revenue: totalRevenue,
+                                                margin: totalMargin
+                                            }]
+        });
     }
+
+
 }
